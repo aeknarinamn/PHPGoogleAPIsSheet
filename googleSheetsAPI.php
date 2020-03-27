@@ -16,12 +16,15 @@
 	$userId = $deCode['events'][0]['source']['userId'];
 	$type = $deCode['events'][0]['type'];
 
-	$token = "WMOsQ/4hWzaWxHAtvHw7H36SYWtU2RLT87CeKZk674MrmfcenRwApr+/9BIL1HkuWI9h3e8aDuQ6siofBjQ/rVh49uQEpz8r5It/hnguWF2Vd91lEBWHyQaYuNDvEfkruzMBbLrTXK5cs9wvmKhR/1GUYhWQfeY8sLGRXgo3xvw=";
+	$token = "LINE-ACCESS-TOKEN";
 
 	$LINEProfileDatas['url'] = "https://api.line.me/v2/bot/profile/".$userId;
   	$LINEProfileDatas['token'] = $token;
 
   	$resultsLineProfile = getLINEProfile($LINEProfileDatas);
+
+  	$LINEUserProfile = json_decode($resultsLineProfile['message'],true);
+  	$displayName = $LINEUserProfile['displayName'];
 
 	/*
 	 * We need to get a Google_Client object first to handle auth and api calls, etc.
@@ -29,16 +32,16 @@
 	$client = new \Google_Client();
     $client->setApplicationName('Google Sheets API PHP Quickstart');
     $client->setScopes(\Google_Service_Sheets::SPREADSHEETS);
-    $client->setAuthConfig(__DIR__.'/testtest-271513-40e53c2c3725.json');
+    $client->setAuthConfig(__DIR__.'/amiable-octane-272311-e2e44b0f4852.json');
     $client->setAccessType('offline');
     // $client->setPrompt('select_account consent');
 
     $service = new \Google_Service_Sheets($client);
 
-    $spreadsheetId = "1MBxG_N3tg9B0iLPwYP7bG9HRPY7tWNv_VGJy0KBDWTY";
+    $spreadsheetId = "GOOGLE-SHEETS-ID";
 
     // updateData($spreadsheetId,$service);
-    insertData($spreadsheetId,$service);
+    insertData($spreadsheetId,$service,$displayName);
 
 
     function getData($spreadsheetId,$service)
@@ -63,13 +66,13 @@
 		}
     }
 
-    function insertData($spreadsheetId,$service)
+    function insertData($spreadsheetId,$service,$displayName)
     {
     	// $range = 'congress!D2:F1000000';
 	    //INSERT DATA
-	    $range = 'a2:b2';
+	    $range = 'a2';
 	    $values = [
-	    	["Chalida","Bumrungjit"],
+	    	[$displayName],
 	    ];
 	    $body = new Google_Service_Sheets_ValueRange([
 	    	'values' => $values
