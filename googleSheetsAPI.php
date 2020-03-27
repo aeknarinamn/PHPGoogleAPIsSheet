@@ -96,7 +96,7 @@
     {
     	$range = 'a2:b2';
     	$values = [
-	    	["Pawat","Tana"],
+	    	["Test","Test"],
 	    ];
 	    $body = new Google_Service_Sheets_ValueRange([
 	    	'values' => $values
