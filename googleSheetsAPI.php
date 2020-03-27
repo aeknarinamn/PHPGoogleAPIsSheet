@@ -43,30 +43,7 @@
     // updateData($spreadsheetId,$service);
     insertData($spreadsheetId,$service,$displayName);
 
-
-    function getData($spreadsheetId,$service)
-    {
-    	// GET DATA
-	    // $range = 'A2:B1000000';
-	    $range = 'congress!D2:F1000000';
-		$response = $service->spreadsheets_values->get($spreadsheetId, $range);
-		$values = $response->getValues();
-
-		if(empty($values)){
-			print "No Data Found.\n";
-		}else{
-			// print "xxxxxxx";
-			// $mask = "%10s %-10s %s\n";
-			foreach ($values as $row) {
-				echo $row[0]."<br/>";
-				// echo $mask;
-				// echo sprintf($mask, $row[2], $row[1], $row[0]);
-				# code...
-			}
-		}
-    }
-
-    function insertData($spreadsheetId,$service,$displayName)
+	function insertData($spreadsheetId,$service,$displayName)
     {
     	// $range = 'congress!D2:F1000000';
 	    //INSERT DATA
@@ -110,6 +87,28 @@
 	    	$body,
 	    	$params
 	    );
+    }
+
+    function getData($spreadsheetId,$service)
+    {
+    	// GET DATA
+	    // $range = 'A2:B1000000';
+	    $range = 'congress!D2:F1000000';
+		$response = $service->spreadsheets_values->get($spreadsheetId, $range);
+		$values = $response->getValues();
+
+		if(empty($values)){
+			print "No Data Found.\n";
+		}else{
+			// print "xxxxxxx";
+			// $mask = "%10s %-10s %s\n";
+			foreach ($values as $row) {
+				echo $row[0]."<br/>";
+				// echo $mask;
+				// echo sprintf($mask, $row[2], $row[1], $row[0]);
+				# code...
+			}
+		}
     }
 
     function getLINEProfile($datas)
